@@ -16,25 +16,54 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        //let requestTodos = "https://jsonplaceholder.typicode.com/posts/1"
+        let url2 = "https://jsonplaceholder.typicode.com/posts"
         self.label.numberOfLines = 0
-        decodeFast_step3 { (userdata) in
-            print(userdata)
-        }
-        //decodeFast()
+        decodeFast_step4_array(url: url2) { (userdata) in
+            print(userdata[1].id)
+            print(userdata[2].id)
+            print(userdata[3].id)
+            print(userdata[4].id)
+            print(userdata[5].id)
+        }//decodeFast()
     }
-    func decodeFast_step3(handler: (UserData) -> Void) {
-        let requestTodos = "https://jsonplaceholder.typicode.com/posts/1"
-        let resp = AF.request(requestTodos)
-        resp.responseDecodable(of: UserData.self) { resp in
+//    func decodeFast_step3(url: String, handler: @escaping (UserData) -> Void) {
+//        let resp = AF.request(url)
+//        resp.responseDecodable(of: UserData.self) { resp in
+//            switch resp.result {
+//            case .success(let userDatas):
+//             print("결과", userDatas)
+//                handler(userDatas)
+//            case .failure(let error):
+//                print(error)
+//            }
+//        }
+//    }
+    //
+    func decodeFast_step4_array(url: String, handler: @escaping ([UserData]) -> Void) {
+        let resp = AF.request(url)
+        resp.responseDecodable(of: [UserData].self) { resp in
             switch resp.result {
             case .success(let userDatas):
-                print("결과", userDatas)
+            // print("결과", userDatas)
                 handler(userDatas)
             case .failure(let error):
                 print(error)
             }
         }
     }
+    func decodeFast_step5_array(url: String, handler: @escaping ([UserData]) -> Void) {
+        let resp = AF.request(url)
+        resp.responseDecodable(of: [UserData].self) { resp in
+            switch resp.result {
+            case .success(let userDatas):
+                handler(userDatas)
+            case .failure(let error):
+                print(error)
+            }
+        }
+    }
+    
     func decodeFast() {
         let requestTodos = "https://jsonplaceholder.typicode.com/posts/1"
         let resp = AF.request(reqUrl)
