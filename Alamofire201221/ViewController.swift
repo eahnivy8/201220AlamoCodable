@@ -16,6 +16,9 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        [1, 3, 5, 7].map { (intValue) -> Void in
+            print(intValue)
+        }
         //let requestTodos = "https://jsonplaceholder.typicode.com/posts/1"
         let url2 = "https://jsonplaceholder.typicode.com/posts"
         self.label.numberOfLines = 0
